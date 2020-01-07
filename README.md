@@ -7,7 +7,7 @@ The idea is, in Ruby, we have two ways to insert some variable values in strings
 1. String interpolation: `puts "Foo #{value} bar"`
 2. `String#%` (or `Kernel#format`, if you want): `puts "Foo %.2f value" % value`
 
-First is more convenient (with the variable name where it should be rendered), while the second is much more powerful, allowing to specify various formatting flags. `FStrings` tries to close this gap, with a bit of idea stealing (from the Python) and a bit of dark magic ([binding_of_caller](http://github.com/banister/binding_of_caller)).
+First is more convenient (with the variable name where it should be rendered), while the second is much more powerful, allowing to specify various formatting flags. `FStrings` tries to close this gap, with a bit of idea stealing (from the [Python](https://www.python.org/dev/peps/pep-0498/)) and a bit of dark magic ([binding_of_caller](http://github.com/banister/binding_of_caller)).
 
 ## Showcase
 
@@ -35,7 +35,7 @@ puts f"Formatted: {float%.2f}"
 
 That's mostly it! But not **all** of it :)
 
-FStrings also support **`x=` syntax** (which Python 3.8 invented), indispensable for `puts`-debugging:
+FStrings also support **`x=` syntax** (borrowed from the recent [Python 3.8](https://docs.python.org/3/whatsnew/3.8.html#f-strings-support-for-self-documenting-expressions-and-debugging)), indispensable for `puts`-debugging:
 
 ```ruby
 puts f"Named: {value=%+i}"
@@ -74,6 +74,7 @@ puts f"See, it works: {point %x;%y}"
 The library is _new and experimental_. It is _probably_ helpful in debugging, but probably not advised for any production. The problems I can think of:
 
 * `binding_of_caller` and `eval` are used inside. It is black and unholy magic, obviously;
+* funny `f"foo"` syntax is used to make it look like Python's native fstrings, which could be repulsive for some. In fact, it is just `f()` method, you can use it without `include FStrings`, with just `FStrings.f()`;
 * fstrings-parser is not that mature; it is tested, but can break on more complicated strings (which you hopefully won't need for debugging);
 * probably, parsed strings should be cached, currently, they are not (so in a method which you call 2 mln times, could provide serious slowdown);
 * considering simplistic formatting string definition, statements using `%` can't be inspected (everything after `%` would be thought to be a formatting string).

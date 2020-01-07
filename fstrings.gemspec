@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.email    = 'zverok.offline@gmail.com'
   s.homepage = 'https://github.com/zverok/fstrings'
 
-  s.summary = 'Python-alike fstrings (formatting strings)'
+  s.summary = 'Python-alike fstrings (formatting strings) for Ruby'
   s.description = <<-EOF
     Python-alike formatting strings with Ruby flavour: f"{x=%.2f}"
   EOF
