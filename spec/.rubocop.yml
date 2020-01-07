@@ -1,0 +1,22 @@
+inherit_from: '../.rubocop.yml'
+
+Metrics/BlockLength:
+  Enabled: false
+
+Layout/LineLength:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
+
+RSpec/ImplicitBlockExpectation:
+  Enabled: false
+
+RSpec/ImplicitSubject:
+  Enabled: false
+
+RSpec/EmptyExampleGroup:
+  CustomIncludeMethods: [its_call]
+
+RSpec/FilePath:
+  Enabled: false

@@ -1,0 +1,17 @@
+require: rubocop-rspec
+
+AllCops:
+  Include:
+    - 'lib/**/*.rb'
+    - 'spec/**/*.rb'
+  DisplayCopNames: true
+  TargetRubyVersion: 2.4
+
+Layout/LineLength:
+  Max: 100
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
+Style/ModuleFunction:
+  Enabled: false
