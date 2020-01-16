@@ -15,3 +15,9 @@ Layout/SpaceInsideHashLiteralBraces:
 
 Style/ModuleFunction:
   Enabled: false
+
+Style/MultilineBlockChain:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false

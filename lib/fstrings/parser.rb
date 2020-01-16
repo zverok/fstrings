@@ -9,17 +9,35 @@ module FStrings
           method(:%).to_proc
         end
       end
+
+      # TODO: Take from backports, when they'll be ready
+      unless Enumerator.respond_to?(:produce)
+        refine Enumerator.singleton_class do
+          NOVALUE = Object.new.freeze
+
+          def produce(initial = NOVALUE)
+            Enumerator.new do |y|
+              val = initial == NOVALUE ? yield() : initial
+
+              loop do
+                y << val
+                val = yield(val)
+              end
+            end
+          end
+        end
+      end
     end)
 
     class << self
       def str2code(string)
-        res = []
         scan = StringScanner.new(string)
-        until scan.eos?
-          res << scan_simple(scan).inspect
-          res << statement2code(scan_statement(scan)) unless scan.eos?
-        end
-        res.join(' + ')
+        Enumerator.produce {
+          [
+            scan_simple(scan).inspect,
+            (statement2code(**scan_statement(scan)) unless scan.eos?)
+          ]
+        }.slice_after { scan.eos? }.first.flatten.compact.join(' + ')
       end
 
       private
