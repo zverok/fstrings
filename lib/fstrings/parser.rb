@@ -43,7 +43,7 @@ module FStrings
       private
 
       def scan_simple(scan)
-        str = scan.scan_until(/\{|$/)
+        str = scan.scan_until(/\{|\z/)
         if scan.peek(1) == '{'
           str + scan.scan(/\{/) + scan_simple(scan)
         else
