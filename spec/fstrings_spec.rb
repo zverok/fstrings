@@ -11,9 +11,10 @@ RSpec.describe FStrings do
 
   its_call('simple') { is_expected.to ret 'simple' }
   its_call('{{escaped}}') { is_expected.to ret '{{escaped}}' }
-  its_call('this is {int}') { is_expected.to ret 'this is 5' }
+  its_call("this is {int}") { is_expected.to ret "this is 5" }
   its_call('this is {str}') { is_expected.to ret 'this is string' }
   its_call('this is {str%p}') { is_expected.to ret 'this is "string"' }
+  its_call("this is {str}\n\nthis is {int}") { is_expected.to ret "this is string\n\nthis is 5" }
 
   its_call('this is {int%+i}') { is_expected.to ret 'this is +5' }
   its_call('this is {str% 16s}') { is_expected.to ret 'this is           string' }
